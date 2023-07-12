@@ -11,6 +11,8 @@ import sisge.api.medico.DadosAtualizacaoMedicos;
 import sisge.api.medico.DadosCadastroMedico;
 import sisge.api.paciente.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("pacientes")
 public class PacienteController {
@@ -46,6 +48,12 @@ public class PacienteController {
     @Transactional
     public void excluir(@PathVariable Long id) {
         repository.deleteById(id);
+    }
+
+
+    @GetMapping("/buscar")
+    public  Page<List<Paciente>>  buscar(@RequestParam String nome, Pageable paginacao) {
+        return repository.buscarPorNome(nome, paginacao);
     }
 
 
